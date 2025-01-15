@@ -21,6 +21,7 @@ class _PayState extends State<PayCalculatorApp> {
   void showResult(){
     setState(() {
       readHourInput = hoursController.text;
+      // next: add readRateInput here
     });
   }
 
