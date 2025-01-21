@@ -6,7 +6,7 @@ void main() {
 class PayCalculatorApp extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    // return a state?
+    // return a state? return a stateful state?
     return _PayState();
   }
 }
