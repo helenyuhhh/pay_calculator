@@ -137,7 +137,7 @@ class _PayState extends State<PayCalculatorApp> {
                 ]
                
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 25,),
               Column(
                 children: [
                   // regular pay
@@ -174,7 +174,7 @@ class _PayState extends State<PayCalculatorApp> {
                  ),
               ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 260,),
               // adding other elements here as a child of cloumn
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
