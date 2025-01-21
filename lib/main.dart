@@ -46,6 +46,17 @@ class _PayState extends State<PayCalculatorApp> {
       
     });
   }
+  void clearResult(){
+    setState(() {
+      hoursController.text = "";
+      rateController.text = "";
+      regular = 0.0;
+      overTime = 0.0;
+      totalPayBeforeT = 0.0;
+      tax = 0.0;
+    });
+
+  }
 
   // we need to clean it up otherwise the memory will leak
   @override
@@ -89,7 +100,7 @@ class _PayState extends State<PayCalculatorApp> {
                       controller: hoursController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: '123...' ),),
+                        hintText: '0' ),),
                   )],
               ),
               SizedBox(height: 30,),
@@ -108,26 +119,68 @@ class _PayState extends State<PayCalculatorApp> {
                       controller: rateController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: '123...'
+                        hintText: '0'
                       ),
                     ),
                   )
                 ],
               ),
               // adding other elements here as a child of cloumn
-              // Text(readRateInput), // for debugging only
-              ElevatedButton(onPressed: showResult, 
-              child: const Text("Calculate", style: TextStyle(fontSize: 23),)),
-              Text(regular.toStringAsFixed(2)), // for debugging only
-              Text(overTime.toStringAsFixed(2)), // for debugging only
-              Text(totalPayBeforeT.toStringAsFixed(2)), // for debugging only
-              Text(tax.toStringAsFixed(2)), // for debugging only
+              SizedBox(height: 20,),
+              Row(
+                children: [
+                   ElevatedButton(onPressed: clearResult, 
+                    child: const Text("Clear", style: TextStyle(fontSize: 23),)),
+                    SizedBox(width: 130,),
+                   ElevatedButton(onPressed: showResult, 
+                     child: const Text("Calculate", style: TextStyle(fontSize: 23),)),
+                ]
+               
+              ),
+              SizedBox(height: 20,),
+              Column(
+                children: [
+                  // regular pay
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Regular pay: ${regular.toStringAsFixed(2)}",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  // overtime pay
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Text("Overtime: ${overTime.toStringAsFixed(2)}",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  // Total pay before tax:
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Total pay before tax: ${totalPayBeforeT.toStringAsFixed(2)}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                   ],
+                  ),
+                 // Tax: 
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Tax: ${tax.toStringAsFixed(2)}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                   ],
+                 ),
+              ],
+              ),
+              SizedBox(height: 20,),
               // adding other elements here as a child of cloumn
               Row(
-                
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Qianhui Yu"),
-                  Text("301462989")
+                  Text("Qianhui Yu  301462989",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500))
                 ],
               )
             ],
