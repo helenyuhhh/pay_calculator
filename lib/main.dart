@@ -22,7 +22,7 @@ class _PayState extends State<PayCalculatorApp> {
   var overTime = 0.0;
   var totalPayBeforeT = 0.0;
   var tax = 0.0;
-  var vaildInput;
+  var vaildInput = true;
   // declare the showMessage function, later this can show the result and also calculate
   
   void calculateResult(){
@@ -35,7 +35,7 @@ class _PayState extends State<PayCalculatorApp> {
       vaildInput = false;
     }
     else {
-      vaildInput = true;
+      // vaildInput = true;
       /* do calculation:
       > 40 hrs, (inout - 40) * 1.5 * rate = overtime pay
       <= 40hrs, input * rate
@@ -173,7 +173,7 @@ class _PayState extends State<PayCalculatorApp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    Text("Overtime: ${overTime.toStringAsFixed(2)}",
+                    Text("Overtime Pay: ${overTime.toStringAsFixed(2)}",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                     ],
                   ),
