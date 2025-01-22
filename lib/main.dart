@@ -22,12 +22,20 @@ class _PayState extends State<PayCalculatorApp> {
   var overTime = 0.0;
   var totalPayBeforeT = 0.0;
   var tax = 0.0;
+  var vaildInput;
   // declare the showMessage function, later this can show the result and also calculate
-  void showResult(){
+  
+  void calculateResult(){
     setState(() {
       // assign the value to the variables from the input
       readHourInput = double.parse(hoursController.text);
       readRateInput = double.parse(rateController.text);
+    });
+     if (readHourInput > 60 || readRateInput > 1000000) {
+      vaildInput = false;
+    }
+    else {
+      vaildInput = true;
       /* do calculation:
       > 40 hrs, (inout - 40) * 1.5 * rate = overtime pay
       <= 40hrs, input * rate
@@ -44,8 +52,11 @@ class _PayState extends State<PayCalculatorApp> {
       totalPayBeforeT = regular + overTime;
       tax = totalPayBeforeT * 0.18;
       
-    });
+    }
+    
   }
+  // add a function to call the calculation once the input is valid
+  
   void clearResult(){
     setState(() {
       hoursController.text = "";
@@ -54,6 +65,7 @@ class _PayState extends State<PayCalculatorApp> {
       overTime = 0.0;
       totalPayBeforeT = 0.0;
       tax = 0.0;
+      vaildInput = true;
     });
 
   }
@@ -132,16 +144,25 @@ class _PayState extends State<PayCalculatorApp> {
                    ElevatedButton(onPressed: clearResult, 
                     child: const Text("Clear", style: TextStyle(fontSize: 23),)),
                     SizedBox(width: 130,),
-                   ElevatedButton(onPressed: showResult, 
+                   ElevatedButton(onPressed: calculateResult, 
                      child: const Text("Calculate", style: TextStyle(fontSize: 23),)),
                 ]
                
               ),
+              
               SizedBox(height: 25,),
               Column(
+                
                 children: [
+                  if (!vaildInput) Text("Please Input valid value!", 
+                  style: TextStyle(fontSize: 30, 
+                  fontWeight: FontWeight.w700 ,
+                  color: const Color.fromARGB(255, 208, 50, 50)),),
                   // regular pay
-                  Row(
+                  if(vaildInput)
+                  Column(
+                    children: [
+                      Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Regular pay: ${regular.toStringAsFixed(2)}",
@@ -172,6 +193,10 @@ class _PayState extends State<PayCalculatorApp> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                    ],
                  ),
+
+                    ],
+                  ),
+                  
               ],
               ),
               SizedBox(height: 260,),
